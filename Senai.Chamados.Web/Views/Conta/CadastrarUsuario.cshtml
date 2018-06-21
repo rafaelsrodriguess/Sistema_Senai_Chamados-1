@@ -1,8 +1,38 @@
-﻿
+﻿@model Senai.Chamados.Web.ViewModels.CadastrarUsuarioViewModel
+
 @{
+    /**/
+
     ViewBag.Title = "CadastrarUsuario";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<h2>CadastrarUsuario</h2>
+@section Styles{
+    <link href="https://getbootstrap.com/docs/4.1/examples/sign-in/signin.css" rel="stylesheet" />
+}
+@using (Html.BeginForm("CadastrarUsuario", "Conta", FormMethod.Post, new { @class = "form-signin" }))
+{
+    <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+
+    <h1 class="h3 mb-3 font-weight-normal">Criar Conta</h1>
+
+    @Html.LabelFor(x => x.Nome, new { @class = "sr-only" });
+    @Html.TextBoxFor(x => x.Nome, new { @class = "form-control", placeHolder = "Informe o nome", required = "true" });
+
+    @Html.LabelFor(x => x.Email, new { @class = "sr-only" });
+    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeHolder = "Informe o email", required = "true" });
+
+    @Html.LabelFor(x => x.Telefone, new { @class = "sr-only" });
+    @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control", placeHolder = "Informe o telefone", required = "true" });
+
+    @Html.LabelFor(x => x.Senha, new { @class = "sr-only" });
+    @Html.TextBoxFor(x => x.Senha, new { @class = "form-control", placeHolder = "Informe a senha", required = "true" });
+
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+}
+
+
+
 
