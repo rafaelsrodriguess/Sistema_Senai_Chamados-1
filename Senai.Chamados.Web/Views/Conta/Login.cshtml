@@ -1,8 +1,37 @@
-﻿
+﻿@model Senai.Chamados.Web.ViewModels.LoginViewModel
+
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<h2>Login</h2>
+@section Styles{
+    <link href="https://getbootstrap.com/docs/4.1/examples/floating-labels/floating-labels.css" rel="stylesheet" />
+}
+
+@using (Html.BeginForm("CadastrarUsuario", "Conta", FormMethod.Post, new { @class = "form-signin" }))
+{
+    <div class="text-center mb-4">
+        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
+        <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
+    </div>
+
+    <p>@ViewBag.Erro</p>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Email)
+        @Html.ValidationMessageFor(x => x.Email)
+    </div>
+
+    <div class="form-label-group">
+        @Html.PasswordFor(x => x.Senha, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Senha)
+        @Html.ValidationMessageFor(x => x.Senha)
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+}
 

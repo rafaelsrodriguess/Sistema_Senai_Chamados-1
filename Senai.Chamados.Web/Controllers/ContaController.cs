@@ -13,6 +13,18 @@ namespace Senai.Chamados.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Login(LoginViewModel Login)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Erro = "Dados Inválidos";
+                return View();
+            }
+
+            return View();
+        }
+
         [HttpGet]
         public ActionResult CadastrarUsuario()
         {
