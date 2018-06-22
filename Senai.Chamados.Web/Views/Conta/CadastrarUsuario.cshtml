@@ -8,31 +8,44 @@
 }
 
 @section Styles{
-    <link href="https://getbootstrap.com/docs/4.1/examples/sign-in/signin.css" rel="stylesheet" />
+    <link href="https://getbootstrap.com/docs/4.1/examples/floating-labels/floating-labels.css" rel="stylesheet" />
 }
+
 @using (Html.BeginForm("CadastrarUsuario", "Conta", FormMethod.Post, new { @class = "form-signin" }))
 {
-    <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <div class="text-center mb-4">
+        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
+        <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
+    </div>
 
-    <h1 class="h3 mb-3 font-weight-normal">Criar Conta</h1>
+    <p>@ViewBag.Erro</p>
 
-    @Html.LabelFor(x => x.Nome, new { @class = "sr-only" });
-    @Html.TextBoxFor(x => x.Nome, new { @class = "form-control", placeHolder = "Informe o nome", required = "true" });
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Nome)
+        @Html.ValidationMessageFor(x => x.Nome)
+    </div>
 
-    @Html.LabelFor(x => x.Email, new { @class = "sr-only" });
-    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeHolder = "Informe o email", required = "true" });
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Email)
+        @Html.ValidationMessageFor(x => x.Email)
+    </div>
 
-    @Html.LabelFor(x => x.Telefone, new { @class = "sr-only" });
-    @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control", placeHolder = "Informe o telefone", required = "true" });
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Telefone)
+        @Html.ValidationMessageFor(x => x.Telefone)
+    </div>
 
-    @Html.LabelFor(x => x.Senha, new { @class = "sr-only" });
-    @Html.TextBoxFor(x => x.Senha, new { @class = "form-control", placeHolder = "Informe a senha", required = "true" });
-
+    <div class="form-label-group">
+        @Html.PasswordFor(x => x.Senha, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Senha)
+        @Html.ValidationMessageFor(x => x.Senha)
+    </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
 }
-
-
-
 
