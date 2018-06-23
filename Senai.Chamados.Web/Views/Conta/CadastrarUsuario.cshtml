@@ -13,6 +13,8 @@
 
 @using (Html.BeginForm("CadastrarUsuario", "Conta", FormMethod.Post, new { @class = "form-signin" }))
 {
+    @ViewBag.Autenticado
+
     <div class="text-center mb-4">
         <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
@@ -45,7 +47,20 @@
         @Html.ValidationMessageFor(x => x.Senha)
     </div>
 
+    <div class="form-label-group">
+        @Html.DropDownListFor(x => x.SexoId, Model.Sexo,"Selecione o Sexo", new { @class="form-control"})
+    </div>
+
     <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
 }
 
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#Telefone").mask('(00) 0000-00000');
+        })
+    </script>
+}
