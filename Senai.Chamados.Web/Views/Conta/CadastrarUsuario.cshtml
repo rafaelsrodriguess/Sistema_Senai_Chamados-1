@@ -42,13 +42,61 @@
     </div>
 
     <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Cpf, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Cpf)
+        @Html.ValidationMessageFor(x => x.Cpf)
+    </div>
+
+    <div class="form-label-group">
         @Html.PasswordFor(x => x.Senha, new { @class = "form-control" })
         @Html.LabelFor(x => x.Senha)
         @Html.ValidationMessageFor(x => x.Senha)
     </div>
 
     <div class="form-label-group">
-        @Html.DropDownListFor(x => x.SexoId, Model.Sexo,"Selecione o Sexo", new { @class="form-control"})
+        @Html.DropDownListFor(x => x.SexoId, Model.Sexo, "Selecione o Sexo", new { @class = "form-control" })
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Cep, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Cep)
+        @Html.ValidationMessageFor(x => x.Cep)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Logradouro, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Logradouro)
+        @Html.ValidationMessageFor(x => x.Logradouro)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Numero, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Numero)
+        @Html.ValidationMessageFor(x => x.Numero)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Complemento, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Complemento)
+        @Html.ValidationMessageFor(x => x.Complemento)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Bairro, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Bairro)
+        @Html.ValidationMessageFor(x => x.Bairro)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Cidade, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Cidade)
+        @Html.ValidationMessageFor(x => x.Cidade)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Estado, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Estado)
+        @Html.ValidationMessageFor(x => x.Estado)
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
@@ -61,6 +109,8 @@
     <script>
         $(document).ready(function () {
             $("#Telefone").mask('(00) 0000-00000');
+            $("#Cep").mask('00000-000');
+            $("#Cpf").mask('000.000.000-00')
         })
     </script>
 }

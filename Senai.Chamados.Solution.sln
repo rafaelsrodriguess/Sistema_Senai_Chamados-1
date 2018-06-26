@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senai.Chamados.Web", "Senai.Chamados.Web\Senai.Chamados.Web.csproj", "{F221BB9D-E2A3-4655-B97F-666CB1E2A31F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senai.Chamados.Domain", "Senai.Chamados.Domain\Senai.Chamados.Domain.csproj", "{38FEFD43-A1EA-4495-BB98-F50A3B907AFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senai.Chamados.Data", "Senai.Chamados.Data\Senai.Chamados.Data.csproj", "{23410DB0-DFB1-4FAD-AC8F-18F5A52D816A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F221BB9D-E2A3-4655-B97F-666CB1E2A31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F221BB9D-E2A3-4655-B97F-666CB1E2A31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F221BB9D-E2A3-4655-B97F-666CB1E2A31F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38FEFD43-A1EA-4495-BB98-F50A3B907AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38FEFD43-A1EA-4495-BB98-F50A3B907AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38FEFD43-A1EA-4495-BB98-F50A3B907AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38FEFD43-A1EA-4495-BB98-F50A3B907AFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23410DB0-DFB1-4FAD-AC8F-18F5A52D816A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23410DB0-DFB1-4FAD-AC8F-18F5A52D816A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23410DB0-DFB1-4FAD-AC8F-18F5A52D816A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23410DB0-DFB1-4FAD-AC8F-18F5A52D816A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,9 @@
 ﻿
+using Senai.Chamados.Data.Contexto;
+using Senai.Chamados.Data.Repositorios;
+using Senai.Chamados.Domain.Entidades;
 using Senai.Chamados.Web.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -23,19 +27,21 @@ namespace Senai.Chamados.Web.Controllers
                 return View();
             }
 
-            //Valida Usuário
-            if(Login.Email == "senai@br.senai.sp" && Login.Senha == "123456")
+            using(UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
             {
-                TempData["Autenticado"] = "Usuário Autenticado";
-                //Redireciona para página Home
-                return RedirectToAction("Index", "Home");
+                UsuarioDomain objUsuario = _repUsuario.Login(Login.Email, Login.Senha);
+
+                if(objUsuario != null)
+                {
+                    return RedirectToAction("Index", "Usuario");
+                }
+                else
+                {
+                    ViewBag.Erro = "Usuário ou senha inválidos. Tente novamente";
+                    return View(Login);
+                }
             }
-            else
-            {
-                ViewBag.Autenticado = "Usuário não cadastrado";
-                //Redireciona para página de cadastro de usuário
-                return RedirectToAction("CadastrarUsuario");
-            }
+
         }
 
         [HttpGet]
@@ -62,8 +68,45 @@ namespace Senai.Chamados.Web.Controllers
                 return View(usuario);
             }
 
-            //TODO: Efetuar cadastro banco de dados
-            return View(usuario);
+            SenaiChamadosDbContext objDbContext = new SenaiChamadosDbContext();
+            UsuarioDomain objUsuario = new UsuarioDomain();
+
+            try
+            {
+                //objUsuario.Id = Guid.NewGuid();
+                objUsuario.Nome = usuario.Nome;
+                objUsuario.Email = usuario.Email;
+                objUsuario.Senha = usuario.Senha;
+                objUsuario.Telefone = usuario.Telefone;
+                objUsuario.Cpf = usuario.Cpf.Replace(".", "").Replace("-","");
+                objUsuario.Cep = usuario.Cep.Replace("-", "");
+                objUsuario.Logradouro = usuario.Logradouro;
+                objUsuario.Numero = usuario.Numero;
+                objUsuario.Complemento = usuario.Complemento;
+                objUsuario.Bairro = usuario.Bairro;
+                objUsuario.Cidade = usuario.Cidade;
+                objUsuario.Estado = usuario.Estado;
+                //objUsuario.DataCriacao = DateTime.Now;
+                //objUsuario.DataAlteracao = DateTime.Now;
+
+                using(UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
+                {
+                    _repUsuario.Inserir(objUsuario);
+                }
+
+                TempData["Mensagem"] = "Usuário cadastrado";
+                return RedirectToAction("Login");
+            }
+            catch (System.Exception ex)
+            {
+                ViewBag.Erro = ex.Message;
+                return View(usuario);
+            }
+            finally
+            {
+                objDbContext = null;
+                objUsuario = null;
+            }
         }
 
         private SelectList ListaSexo()
