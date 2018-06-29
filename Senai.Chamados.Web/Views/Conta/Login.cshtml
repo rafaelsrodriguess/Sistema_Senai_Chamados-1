@@ -12,9 +12,10 @@
 @using (Html.BeginForm("Login", "Conta", FormMethod.Post, new { @class = "form-signin" }))
 {
     <div class="text-center mb-4">
-        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
-        <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
+        <br />
+        <img class="mb-4" src="~/Content/img/senai-sp.jpg" alt="" width="125" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        <p>Faça o login para abrir chamados em nosso sistema.</p>
     </div>
 
     <p>@ViewBag.Erro</p>
@@ -35,4 +36,3 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
 }
-

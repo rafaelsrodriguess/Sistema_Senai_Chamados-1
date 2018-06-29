@@ -1,4 +1,5 @@
 ﻿
+using AutoMapper;
 using Senai.Chamados.Data.Contexto;
 using Senai.Chamados.Data.Repositorios;
 using Senai.Chamados.Domain.Entidades;
@@ -68,30 +69,14 @@ namespace Senai.Chamados.Web.Controllers
                 return View(usuario);
             }
 
-            SenaiChamadosDbContext objDbContext = new SenaiChamadosDbContext();
-            UsuarioDomain objUsuario = new UsuarioDomain();
-
             try
             {
-                //objUsuario.Id = Guid.NewGuid();
-                objUsuario.Nome = usuario.Nome;
-                objUsuario.Email = usuario.Email;
-                objUsuario.Senha = usuario.Senha;
-                objUsuario.Telefone = usuario.Telefone;
-                objUsuario.Cpf = usuario.Cpf.Replace(".", "").Replace("-","");
-                objUsuario.Cep = usuario.Cep.Replace("-", "");
-                objUsuario.Logradouro = usuario.Logradouro;
-                objUsuario.Numero = usuario.Numero;
-                objUsuario.Complemento = usuario.Complemento;
-                objUsuario.Bairro = usuario.Bairro;
-                objUsuario.Cidade = usuario.Cidade;
-                objUsuario.Estado = usuario.Estado;
-                //objUsuario.DataCriacao = DateTime.Now;
-                //objUsuario.DataAlteracao = DateTime.Now;
-
+                usuario.Cpf = usuario.Cpf.Replace(".", "").Replace("-","");
+                usuario.Cep = usuario.Cep.Replace("-", "");
+                
                 using(UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
                 {
-                    _repUsuario.Inserir(objUsuario);
+                    _repUsuario.Inserir(Mapper.Map<CadastrarUsuarioViewModel, UsuarioDomain>(usuario));
                 }
 
                 TempData["Mensagem"] = "Usuário cadastrado";
@@ -101,11 +86,6 @@ namespace Senai.Chamados.Web.Controllers
             {
                 ViewBag.Erro = ex.Message;
                 return View(usuario);
-            }
-            finally
-            {
-                objDbContext = null;
-                objUsuario = null;
             }
         }
 
