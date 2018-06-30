@@ -20,6 +20,7 @@ namespace Senai.Chamados.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel Login)
         {
             if (!ModelState.IsValid)
@@ -59,6 +60,7 @@ namespace Senai.Chamados.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CadastrarUsuario(CadastrarUsuarioViewModel usuario)
         {
             usuario.Sexo = ListaSexo();

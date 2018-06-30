@@ -32,7 +32,7 @@ namespace Senai.Chamados.Web.ViewModels.Usuario
         public string Senha { get; set; }
 
         public SelectList Sexo { get; set; }
-        [Required(ErrorMessage = "Informe o sexo")]
+        //[Required(ErrorMessage = "Informe o sexo")]
         public string SexoId { get; set; }
 
         [MaxLength(9, ErrorMessage = "Cep deve possui no máximo 9 caracteres")]
