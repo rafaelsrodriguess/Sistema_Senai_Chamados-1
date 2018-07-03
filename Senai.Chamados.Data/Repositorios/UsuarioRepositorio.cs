@@ -25,7 +25,7 @@ namespace Senai.Chamados.Data.Repositorios
         /// <returns>Retorna true para usuário cadastrado e false caso não seja cadastrado</returns>
         public bool Alterar(UsuarioDomain domain)
         {
-            _contexto.Entry<UsuarioDomain>(domain).State = System.Data.Entity.EntityState.Modified;
+            _contexto.Entry<UsuarioDomain>(domain).State = EntityState.Modified;
             int linhasAlteradas = _contexto.SaveChanges();
 
             if (linhasAlteradas > 0)
@@ -62,7 +62,8 @@ namespace Senai.Chamados.Data.Repositorios
         /// <returns>Retorna true para usuário cadastrado e false caso não seja cadastrado</returns>
         public bool Deletar(UsuarioDomain domain)
         {
-            _contexto.Usuarios.Remove(domain);
+            var usuario = _contexto.Usuarios.Single(o => o.Id == domain.Id);
+            _contexto.Usuarios.Remove(usuario);
             int linhasExcluidas = _contexto.SaveChanges();
 
             if (linhasExcluidas > 0)

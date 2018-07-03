@@ -8,10 +8,14 @@ using System.Web.Mvc;
 
 namespace Senai.Chamados.Web.Controllers
 {
+
+    [Authorize]
     public class UsuarioController : Controller
     {
         // GET: Usuario
+        
         [HttpGet]
+        
         public ActionResult Index()
         {
             ListaUsuarioViewModel vmListaUsuario = new ListaUsuarioViewModel();
@@ -23,7 +27,7 @@ namespace Senai.Chamados.Web.Controllers
 
             return View(vmListaUsuario);
         }
-
+        
         [HttpGet]
         public ActionResult Editar(Guid id)
         {
@@ -134,5 +138,7 @@ namespace Senai.Chamados.Web.Controllers
                 }
             }
         }
+
+        
     }
 }
