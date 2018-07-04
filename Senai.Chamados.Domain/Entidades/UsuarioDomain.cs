@@ -1,4 +1,6 @@
 ﻿using Senai.Chamados.Domain.Enum;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -36,5 +38,7 @@ namespace Senai.Chamados.Domain.Entidades
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
+
+        public virtual ICollection<ChamadoDomain> Chamados { get; set; }
     }
 }
