@@ -9,11 +9,10 @@ using System.Web.Mvc;
 namespace Senai.Chamados.Web.Controllers
 {
 
-    
+    [Authorize(Roles = "Administrador")]
     public class UsuarioController : Controller
     {
         // GET: Usuario
-        
         [HttpGet]
         public ActionResult Index()
         {
@@ -34,7 +33,6 @@ namespace Senai.Chamados.Web.Controllers
             return View(vmListaUsuario);
         }
 
-        [Authorize(Roles = "Administrador")]
         [HttpGet]
         public ActionResult Editar(Guid id)
         {
@@ -62,7 +60,6 @@ namespace Senai.Chamados.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar(UsuarioViewModel usuario)
