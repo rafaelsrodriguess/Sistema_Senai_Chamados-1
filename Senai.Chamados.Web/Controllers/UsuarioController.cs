@@ -9,15 +9,21 @@ using System.Web.Mvc;
 namespace Senai.Chamados.Web.Controllers
 {
 
-    [Authorize]
+    
     public class UsuarioController : Controller
     {
         // GET: Usuario
         
         [HttpGet]
-        
         public ActionResult Index()
         {
+
+            //if (!User.IsInRole("Administrador"))
+            //{
+            //    ViewBag.Erro = "Você não tem permissão para acessar esta tela";
+            //    return View();
+            //}
+
             ListaUsuarioViewModel vmListaUsuario = new ListaUsuarioViewModel();
 
             using(UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
@@ -27,7 +33,8 @@ namespace Senai.Chamados.Web.Controllers
 
             return View(vmListaUsuario);
         }
-        
+
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         public ActionResult Editar(Guid id)
         {
@@ -55,6 +62,7 @@ namespace Senai.Chamados.Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar(UsuarioViewModel usuario)
@@ -138,7 +146,5 @@ namespace Senai.Chamados.Web.Controllers
                 }
             }
         }
-
-        
     }
 }

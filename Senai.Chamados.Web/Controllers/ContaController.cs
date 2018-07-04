@@ -3,9 +3,12 @@ using AutoMapper;
 using Senai.Chamados.Data.Contexto;
 using Senai.Chamados.Data.Repositorios;
 using Senai.Chamados.Domain.Entidades;
+using Senai.Chamados.Domain.Enum;
 using Senai.Chamados.Web.ViewModels;
+using Senai.Chamados.Web.ViewModels.Usuario;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
@@ -40,8 +43,10 @@ namespace Senai.Chamados.Web.Controllers
                     var identity = new ClaimsIdentity(new[] {
                         new Claim(ClaimTypes.Name, objUsuario.Nome),
                         new Claim(ClaimTypes.Email, objUsuario.Email),
-                        new Claim(ClaimTypes.PrimarySid, objUsuario.Id.ToString()),
-                        new Claim(ClaimTypes.NameIdentifier,objUsuario.Id.ToString())
+                        new Claim(ClaimTypes.NameIdentifier,objUsuario.Id.ToString()),
+                        new Claim(ClaimTypes.Role, objUsuario.TipoUsuario.ToString()),
+                        //Defini uma Claim com um novo tipo
+                        new Claim("Telefone", objUsuario.Telefone.ToString())
                     }, "ApplicationCookie");
 
                     Request.GetOwinContext().Authentication.SignIn(identities: identity);
@@ -60,21 +65,18 @@ namespace Senai.Chamados.Web.Controllers
         [HttpGet]
         public ActionResult CadastrarUsuario()
         {
-            CadastrarUsuarioViewModel objCadastrarUsuario = new CadastrarUsuarioViewModel();
-            //objCadastrarUsuario.Nome = "Fernando Henrique";
-            //objCadastrarUsuario.Email = "fernando.guerra@corujasdev.com.br";
+            UsuarioViewModel objCadastrarUsuario = new UsuarioViewModel();
 
-            objCadastrarUsuario.Sexo =  ListaSexo();
-
-
+            objCadastrarUsuario.ListaSexo =  ListaSexo();
+            
             return View(objCadastrarUsuario);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CadastrarUsuario(CadastrarUsuarioViewModel usuario)
+        public ActionResult CadastrarUsuario(UsuarioViewModel usuario)
         {
-            usuario.Sexo = ListaSexo();
+            usuario.ListaSexo = ListaSexo();
 
             if (!ModelState.IsValid)
             {
@@ -86,10 +88,11 @@ namespace Senai.Chamados.Web.Controllers
             {
                 usuario.Cpf = usuario.Cpf.Replace(".", "").Replace("-","");
                 usuario.Cep = usuario.Cep.Replace("-", "");
-                
+                usuario.TipoUsuario = EnTipoUsuario.Padrao;
+
                 using(UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
                 {
-                    _repUsuario.Inserir(Mapper.Map<CadastrarUsuarioViewModel, UsuarioDomain>(usuario));
+                    _repUsuario.Inserir(Mapper.Map<UsuarioViewModel, UsuarioDomain>(usuario));
                 }
 
                 TempData["Mensagem"] = "Usuário cadastrado";
@@ -105,11 +108,11 @@ namespace Senai.Chamados.Web.Controllers
         private SelectList ListaSexo()
         {
             return new SelectList(
-                    new List<SelectListItem>
-                    {
-                        new SelectListItem { Text = "Masculino", Value = "1"},
-                        new SelectListItem { Text= "Feminino", Value = "2"},
-                    }, "Value", "Text");
+             new List<SelectListItem>
+             {
+              new SelectListItem { Text = "Masculino", Value = "1"},
+              new SelectListItem { Text= "Feminino", Value = "2"},
+             }, "Value", "Text");
         }
 
         [HttpGet]

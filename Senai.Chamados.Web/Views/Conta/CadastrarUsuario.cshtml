@@ -1,4 +1,4 @@
-﻿@model Senai.Chamados.Web.ViewModels.CadastrarUsuarioViewModel
+﻿@model Senai.Chamados.Web.ViewModels.Usuario.UsuarioViewModel
 
 @{
     /**/
@@ -56,7 +56,7 @@
     </div>
 
     <div class="form-label-group">
-        @Html.DropDownListFor(x => x.SexoId, Model.Sexo, "Selecione o Sexo", new { @class = "form-control" })
+        @Html.DropDownListFor(x => x.Sexo, Model.ListaSexo, "Selecione o Sexo", new { @class = "form-control" })
     </div>
 
     <div class="form-label-group">
