@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Senai.Chamados.Domain.Entidades;
 using Senai.Chamados.Web.ViewModels;
+using Senai.Chamados.Web.ViewModels.Chamado;
 using Senai.Chamados.Web.ViewModels.Usuario;
 
 namespace Senai.Chamados.Web.AutoMapper
@@ -11,6 +12,8 @@ namespace Senai.Chamados.Web.AutoMapper
         {
             Mapper.CreateMap(typeof(UsuarioDomain), typeof(CadastrarUsuarioViewModel));
             Mapper.CreateMap(typeof(UsuarioDomain), typeof(UsuarioViewModel));
+
+            Mapper.CreateMap(typeof(ChamadoDomain), typeof(ChamadoViewModel));
         }
     }
 }

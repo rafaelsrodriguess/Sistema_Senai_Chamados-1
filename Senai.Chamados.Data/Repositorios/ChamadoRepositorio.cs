@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using Senai.Chamados.Data.Contexto;
 using Senai.Chamados.Domain.Contratos;
 using Senai.Chamados.Domain.Entidades;
@@ -29,32 +31,76 @@ namespace Senai.Chamados.Data.Repositorios
 
         public ChamadoDomain BuscarPorId(Guid id, string[] includes = null)
         {
-            throw new NotImplementedException();
+            var query = _contexto.Chamados.AsQueryable();
+
+            if(includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return query.FirstOrDefault(x => x.Id == id);
         }
 
         public bool Deletar(ChamadoDomain domain)
         {
-            throw new NotImplementedException();
+            var chamado = _contexto.Chamados.Single(x => x.Id == domain.Id);
+            _contexto.Chamados.Remove(chamado);
+
+            int linhasDeletadas = _contexto.SaveChanges();
+
+            if (linhasDeletadas > 0)
+                return true;
+            else
+                return false;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _contexto.Dispose();
         }
 
         public bool Inserir(ChamadoDomain domain)
         {
-            throw new NotImplementedException();
+            _contexto.Chamados.Add(domain);
+            int linhasIncluidas = _contexto.SaveChanges();
+
+            if (linhasIncluidas > 0)
+                return true;
+            else
+                return false;
         }
 
         public List<ChamadoDomain> Listar(Guid idUsuario, string[] includes = null)
         {
-            throw new NotImplementedException();
+            var query = _contexto.Chamados.AsQueryable();
+
+            if(includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return query.Where(x => x.IdUsuario == idUsuario).ToList();
         }
 
         public List<ChamadoDomain> Listar(string[] includes = null)
         {
-            throw new NotImplementedException();
+            var query = _contexto.Chamados.AsQueryable();
+
+            if(includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return query.ToList();
         }
     }
 }
