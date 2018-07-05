@@ -15,6 +15,7 @@ namespace Senai.Chamados.Web.Controllers
     public class ChamadoController : Controller
     {
         // GET: Chamado
+        [HttpGet]
         public ActionResult Index()
         {
             ListaChamadoViewModel vmListaChamados = new ListaChamadoViewModel();
@@ -37,6 +38,14 @@ namespace Senai.Chamados.Web.Controllers
             }
 
             return View(vmListaChamados);
+        }
+
+        [HttpGet]
+        public ActionResult Cadastrar()
+        {
+            ChamadoViewModel vmChamado = new ChamadoViewModel();
+
+            return View(vmChamado);
         }
     }
 }
