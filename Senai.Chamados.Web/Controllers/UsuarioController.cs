@@ -33,6 +33,7 @@ namespace Senai.Chamados.Web.Controllers
             return View(vmListaUsuario);
         }
 
+        //TODO: Alterar para string
         [HttpGet]
         public ActionResult Editar(Guid id)
         {
@@ -91,6 +92,7 @@ namespace Senai.Chamados.Web.Controllers
             }
         }
 
+        //TODO: Alterar para string
         [HttpGet]
         public ActionResult Deletar(Guid id)
         {

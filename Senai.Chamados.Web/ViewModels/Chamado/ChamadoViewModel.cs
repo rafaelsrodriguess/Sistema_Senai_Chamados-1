@@ -1,6 +1,7 @@
 ﻿using Senai.Chamados.Domain.Enum;
 using Senai.Chamados.Web.ViewModels.Usuario;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -15,10 +16,20 @@ namespace Senai.Chamados.Web.ViewModels.Chamado
             ListaStatus = CarregaListaStatus();
         }
 
+        [Required(ErrorMessage = "Título deve ser preenchido")]
+        [Display(Name = "Título do Chamado")]
         public string Titulo { get; set; }
+
+        [Required(ErrorMessage = "Informe a descrição do chamado")]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
+
+        [Required(ErrorMessage = "Informe o setor")]
         public EnSetor Setor { get; set; }
+
+        [Required(ErrorMessage = "Informe o Status")]
         public EnStatus Status { get; set; }
+
         public Guid IdUsuario { get; set; }
         public virtual UsuarioViewModel Usuario { get; set; }
 
@@ -28,7 +39,7 @@ namespace Senai.Chamados.Web.ViewModels.Chamado
         /// <summary>
         /// Carrega a lista de Setores a partir de um Enum
         /// </summary>
-        /// <returns>Retorna um SelectList com os Setores</returns>
+        /// <returns>Retorna um Select List com os Setores</returns>
         public SelectList CarregaListaSetores()
         {
             var listaSetores = new SelectList(Enum.GetValues(typeof(EnSetor)).Cast<EnSetor>().Select(c =>
