@@ -80,7 +80,7 @@ namespace Senai.Chamados.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Editar(string id)
+        public ActionResult Editar(Guid? id)
         {
             //Instancia a ViewModel chamado
             ChamadoViewModel objChamado = new ChamadoViewModel();
@@ -96,7 +96,7 @@ namespace Senai.Chamados.Web.Controllers
                 using(ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
                 {
                     //Busca o chamado pelo Id
-                    objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(new Guid(id)));
+                    objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(id.Value));
 
                     if(objChamado == null)
                     {
@@ -153,7 +153,7 @@ namespace Senai.Chamados.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Excluir(string id)
+        public ActionResult Excluir(Guid? id)
         {
             try
             {
@@ -167,7 +167,7 @@ namespace Senai.Chamados.Web.Controllers
 
                 using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
                 {
-                    objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(new Guid(id)));
+                    objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(id.Value));
 
                     if(objChamado == null)
                     {
@@ -187,7 +187,6 @@ namespace Senai.Chamados.Web.Controllers
 
                     TempData["Erro"] = "Você não possui permissão para excluir este chamado";
                     return RedirectToAction("Index");
-
                 }
 
             }
@@ -195,6 +194,41 @@ namespace Senai.Chamados.Web.Controllers
             {
                 ViewBag.Erro = ex.Message;
                 return View();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Excluir(ChamadoViewModel chamado)
+        {
+              try
+            {
+                if (chamado.Id == Guid.Empty)
+                {
+                    TempData["Erro"] = "Informe o id do chamado";
+                    return RedirectToAction("Index");
+                }
+
+                using(ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
+                {
+                    ChamadoViewModel objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(chamado.Id));
+
+                    if(objChamado == null)
+                    {
+                        TempData["Erro"] = "Chamado não encontrado";
+                        return RedirectToAction("Index");
+                    }
+
+                    objRepoChamado.Deletar(Mapper.Map<ChamadoViewModel, ChamadoDomain>(objChamado));
+                    TempData["Sucesso"] = "Chamado Excluído";
+                    return RedirectToAction("Index");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Erro = ex.Message;
+                return View(chamado);
             }
         }
     }
