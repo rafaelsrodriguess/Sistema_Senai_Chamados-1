@@ -4,6 +4,7 @@ using Senai.Chamados.Data.Contexto;
 using Senai.Chamados.Data.Repositorios;
 using Senai.Chamados.Domain.Entidades;
 using Senai.Chamados.Domain.Enum;
+using Senai.Chamados.Web.Util;
 using Senai.Chamados.Web.ViewModels;
 using Senai.Chamados.Web.ViewModels.Usuario;
 using System;
@@ -36,7 +37,7 @@ namespace Senai.Chamados.Web.Controllers
 
             using(UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
             {
-                UsuarioDomain objUsuario = _repUsuario.Login(Login.Email, Login.Senha);
+                UsuarioDomain objUsuario = _repUsuario.Login(Login.Email, Hash.GerarHash(Login.Senha));
 
                 if(objUsuario != null)
                 {
@@ -89,6 +90,7 @@ namespace Senai.Chamados.Web.Controllers
                 usuario.Cpf = usuario.Cpf.Replace(".", "").Replace("-","");
                 usuario.Cep = usuario.Cep.Replace("-", "");
                 usuario.TipoUsuario = EnTipoUsuario.Padrao;
+                usuario.Senha = Hash.GerarHash(usuario.Senha);
 
                 using(UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
                 {
