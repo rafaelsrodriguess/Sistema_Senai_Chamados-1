@@ -1,15 +1,24 @@
-﻿@model Senai.Chamados.Web.ViewModels.Grafico.ListaGraficoViewModel
+﻿@using Senai.Chamados.Web.Helpers
+@model Senai.Chamados.Web.ViewModels.Grafico.ListaGraficoViewModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<div class="container">
+<div class="jumbotron">
+    <div class="container">
+        <h1>Tela de Graficos</h1>
+        <p>Visualize todas as Informações da sua operaçaõ rapidamente</p>
+    </div>
+</div>
+
+<div class="panel panel-default">
     <div class="panel-heading">Gráficos de Status</div>
     <div class="panel-body">
         <div class="row">
             <div class="col-lg-6">
-                <canvas id="pie-chart-status" with="800" height="450"></canvas>
+                <canvas id="pie-chart-status" width="800" height="450"></canvas>
             </div>
             <div class="col-lg-6">
                 <canvas id="bar-chart-status" width="800" height="450"></canvas>
@@ -18,158 +27,39 @@
     </div>
 </div>
 
-<div class="panel-heading">Gráficos de Setor</div>
-<div class="panel-body">
-    <div class="row">
-        <div class="col-lg-6">
-            <canvas id="pie-chart-setor" with="800" height="450"></canvas>
-        </div>
-        <div class="col-lg-6">
-            <canvas id="bar-chart-setor" width="800" height="450"></canvas>
+    <div class="panel panel-default">
+        <div class="panel-heading">Gráficos de Setor</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <canvas id="pie-chart-setor" width="800" height="450"></canvas>
+                </div>
+                <div class="col-lg-6">
+                    <canvas id="bar-chart-setor" width="800" height="450"></canvas>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
+
 @section Scripts{
+
     <script src="~/Scripts/Chart.min.js"></script>
-    <script src="~/Scripts/Chart.Util.js"></script>{
+    <script src="~/Scripts/Chart.Util.js"></script>
 
     <script type="text/javascript">
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        var myBarChart = new Chart(document.getElementById("bar-chat-status"), {
-            type: 'bar',
-            data: {
-                labels: @Html.Raw(Json.Encode(Model.GraficoStatus.Labels)),
-                datasets: [
-                    {
-                        label: "Status",
-                        backgroundColor: [
-                            window.chartColors.red,
-                            window.chartColors.yellow,
-                            window.chartColors.green
-                        ],
-                        data: @Html.Raw(Json.Encode(Model.GraficoStatus.Data))
-                    }
-                ]
-            },
-            options: {
-                legend : { display: true },
-                title: {
-                    display: true,
-                    text : "Gráfico de Status Barra"
-                },
-                scales: {
-                    yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-                   }
-            }
+            @Html.GerarGraficoChartJs("bar-chart-status", Html.Raw(Json.Encode(Model.GraficoStatus.Labels)), Html.Raw(Json.Encode(Model.GraficoStatus.Data)), "bar", "Gafico de Barra de Status");
+
+            @Html.GerarGraficoChartJs("pie-chart-status", Html.Raw(Json.Encode(Model.GraficoStatus.Labels)), Html.Raw(Json.Encode(Model.GraficoStatus.Data)), "pie", "Gafico de Pizza de Status");
+
+            @Html.GerarGraficoChartJs("bar-chart-setor", Html.Raw(Json.Encode(Model.GraficoStatus.Labels)), Html.Raw(Json.Encode(Model.GraficoStatus.Data)), "bar", "Gafico de Barra por Setor");
+
+             @Html.GerarGraficoChartJs("pie-chart-setor", Html.Raw(Json.Encode(Model.GraficoStatus.Labels)), Html.Raw(Json.Encode(Model.GraficoStatus.Data)), "pie", "Gafico de Pizza por Setor");
+
+           
 
         });
-
-        var myPieChart = new Chart(document.getElementById("pie-chat-status"), {
-            type: 'pie',
-            data: {
-                labels: @Html.Raw(Json.Encode(Model.GraficoStatus.Labels)),
-                datasets: [
-                    {
-                        label: "Status",
-                        backgroundColor: [
-                            window.chartColors.red,
-                            window.chartColors.yellow,
-                            window.chartColors.green
-                        ],
-                        data: @Html.Raw(Json.Encode(Model.GraficoStatus.Data))
-                    }
-                ]
-            },
-            options: {
-                legend : { display: true },
-                title: {
-                    display: true,
-                    text : "Gráfico de Status Barra"
-                },
-                scales: {
-                    yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-                   }
-            }
-
-        });
-
-
-         var myBarChart = new Chart(document.getElementById("bar-chat-setor"), {
-            type: 'bar',
-            data: {
-                labels: @Html.Raw(Json.Encode(Model.GraficoSetor.Labels)),
-                datasets: [
-                    {
-                        label: "Setor",
-                        backgroundColor: [
-                            window.chartColors.red,
-                            window.chartColors.yellow,
-                            window.chartColors.green
-                        ],
-                        data: @Html.Raw(Json.Encode(Model.GraficoSetor.Data))
-                    }
-                ]
-            },
-            options: {
-                legend : { display: true },
-                title: {
-                    display: true,
-                    text : "Gráfico de Setor Barra"
-                },
-                scales: {
-                    yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-                   }
-            }
-
-        });
-
-        var myPieChart = new Chart(document.getElementById("pie-chat-setor"), {
-            type: 'pie',
-            data: {
-                labels: @Html.Raw(Json.Encode(Model.GraficoSetor.Labels)),
-                datasets: [
-                    {
-                        label: "Status",
-                        backgroundColor: [
-                            window.chartColors.red,
-                            window.chartColors.yellow,
-                            window.chartColors.green
-                        ],
-                        data: @Html.Raw(Json.Encode(Model.GraficoSetor.Data))
-                    }
-                ]
-            },
-            options: {
-                legend : { display: true },
-                title: {
-                    display: true,
-                    text : "Gráfico de Status Barra"
-                },
-                scales: {
-                    yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-                   }
-            }
-
-        });
-
-    });
-
     </script>
-    }}
+}

@@ -20,13 +20,11 @@ namespace Senai.Chamados.Web.Controllers
         {
             try
             {
-
                 ListaGraficoViewModel vmGrafico = new ListaGraficoViewModel();
                 ListaChamadoViewModel vmListaChamados = new ListaChamadoViewModel();
 
                 using (ChamadoRepositorio _repoChamado = new ChamadoRepositorio())
                 {
-
 
                     if (User.IsInRole("Administrador"))
                     {
@@ -42,72 +40,65 @@ namespace Senai.Chamados.Web.Controllers
                     }
                 }
 
-                #region Grafico Status
-                //Faz o Agrupamento dos dados por Status
+                #region Gráfico Status
+                //Faz o agrupamento dos dados por Status
                 var grupoStatus = vmListaChamados.ListaChamados
-                               .GroupBy(x => x.Status)
-                               .Select(n => new
-                               {
-                                   Status = RetornaStatus(n.Key),
-                                   Quantidade = Convert.ToDouble (n.Count())
-                               }).OrderBy(n => n.Quantidade);
-                //Atribui as labels que serão mostradas no grafico
+                                    .GroupBy(x => x.Status)
+                                    .Select(n => new
+                                    {
+                                        Status = RetornaStatus(n.Key),
+                                        Quantidade = Convert.ToDouble(n.Count())
+                                    }).OrderBy(n => n.Quantidade);
+
+                //Atribui as labels que serão mostradas no gráfico
                 vmGrafico.GraficoStatus.Labels = grupoStatus.Select(x => x.Status).ToArray();
-                //Atribuir os dasdos que serão apresentados no grafico
+                //Atribuir os dados que serão apresentados no gráfico
                 vmGrafico.GraficoStatus.Data = grupoStatus.Select(x => x.Quantidade).ToArray();
                 #endregion
 
-
-                #region Grafico Setor
-                //Faz o Agrupamento dos dados por Setor
+                #region Gráfico Setor
+                //Faz o agrupamento dos dados por Status
                 var grupoSetor = vmListaChamados.ListaChamados
-                               .GroupBy(x => x.Setor)
-                               .Select(n => new
-                               {
-                                   Setor = RetornaSetor(n.Key),
-                                   Quantidade = Convert.ToDouble(n.Count())
-                               }).OrderBy(n => n.Quantidade);
-                //Atribui as labels que serão mostradas no grafico
+                                    .GroupBy(x => x.Setor)
+                                    .Select(n => new
+                                    {
+                                        Setor = RetornaSetor(n.Key),
+                                        Quantidade = Convert.ToDouble(n.Count())
+                                    }).OrderBy(n => n.Quantidade);
+
+                //Atribui as labels que serão mostradas no gráfico
                 vmGrafico.GraficoSetor.Labels = grupoSetor.Select(x => x.Setor).ToArray();
-                //Atribuir os dasdos que serão apresentados no grafico
+                //Atribuir os dados que serão apresentados no gráfico
                 vmGrafico.GraficoSetor.Data = grupoSetor.Select(x => x.Quantidade).ToArray();
                 #endregion
+
                 return View(vmGrafico);
             }
-
-
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.Erro = ex.Message;
                 return View();
             }
         }
 
-                    private string RetornaSetor(EnSetor setor)
+        private string RetornaSetor(EnSetor setor)
         {
             return setor.ToString();
         }
-                   private string RetornaStatus(EnStatus status)
-            {
+
+        private string RetornaStatus(EnStatus status)
+        {
             switch (status)
             {
                 case EnStatus.Aguardando:
                     return "Aguardando";
                 case EnStatus.Iniciado:
-                    return "Iniciando";
+                    return "Iniciado";
                 case EnStatus.Finalizado:
-                    return "Finalizando";
-                default:
-                    break;
+                    return "Finalizado";
             }
 
             return null;
-            }
-
-
-
+        }
     }
-
-   
-    
 }

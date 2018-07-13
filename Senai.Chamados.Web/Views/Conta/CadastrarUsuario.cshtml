@@ -8,7 +8,7 @@
 }
 
 @section Styles{
-    <link href="https://getbootstrap.com/docs/4.1/examples/floating-labels/floating-labels.css" rel="stylesheet" />
+    <link href="~/Content/Signin.css" rel="stylesheet" />
 }
 
 @using (Html.BeginForm("CadastrarUsuario", "Conta", FormMethod.Post, new { @class = "form-signin" }))
@@ -25,84 +25,58 @@
 
     <p>@ViewBag.Erro</p>
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Nome)
-        @Html.ValidationMessageFor(x => x.Nome)
-    </div>
+    @Html.LabelFor(x => x.Nome, new { @class = "sr-only" })
+    @Html.TextBoxFor(x => x.Nome, new { @class = "form-control", placeholder = "Informe o Nome" })
+    @Html.ValidationMessageFor(x => x.Nome, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Email)
-        @Html.ValidationMessageFor(x => x.Email)
-    </div>
+    @Html.LabelFor(x => x.Email, new { @class = "sr-only" })
+    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "Informe o Email" })
+    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Telefone)
-        @Html.ValidationMessageFor(x => x.Telefone)
-    </div>
+    @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control", placeholder = "Informe o Telefone" })
+    @Html.LabelFor(x => x.Telefone, new { @class = "sr-only" })
+    @Html.ValidationMessageFor(x => x.Telefone, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Cpf, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Cpf)
-        @Html.ValidationMessageFor(x => x.Cpf)
-    </div>
+    @Html.LabelFor(x => x.Cpf, new { @class = "sr-only" })
+    @Html.TextBoxFor(x => x.Cpf, new { @class = "form-control", placeholder = "Informe o Cpf" })
+    @Html.ValidationMessageFor(x => x.Cpf, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.PasswordFor(x => x.Senha, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Senha)
-        @Html.ValidationMessageFor(x => x.Senha)
-    </div>
+    @Html.LabelFor(x => x.Senha, new { @class = "sr-only" })
+    @Html.PasswordFor(x => x.Senha, new { @class = "form-control", placeholder = "Informe a Senha" })
+    @Html.ValidationMessageFor(x => x.Senha, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.DropDownListFor(x => x.Sexo, Model.ListaSexo, "Selecione o Sexo", new { @class = "form-control" })
-    </div>
+    @Html.DropDownListFor(x => x.Sexo, Model.ListaSexo, "Selecione o Sexo", new { @class = "form-control" })
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Cep, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Cep)
-        @Html.ValidationMessageFor(x => x.Cep)
-    </div>
+    @Html.LabelFor(x => x.Cep, new { @class = "sr-only" })
+    @Html.TextBoxFor(x => x.Cep, new { @class = "form-control", placeholder = "Informe o Cep" })
+    @Html.ValidationMessageFor(x => x.Cep, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Logradouro, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Logradouro)
-        @Html.ValidationMessageFor(x => x.Logradouro)
-    </div>
+    @Html.LabelFor(x => x.Logradouro, new { @class = "sr-only" })
+    @Html.TextBoxFor(x => x.Logradouro, new { @class = "form-control", placeholder = "Informe o Logradouro" })
+    @Html.ValidationMessageFor(x => x.Logradouro, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Numero, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Numero)
-        @Html.ValidationMessageFor(x => x.Numero)
-    </div>
+    @Html.LabelFor(x => x.Numero, new { @class = "sr-only" })
+    @Html.TextBoxFor(x => x.Numero, new { @class = "form-control", placeholder = "Informe o Número" })
+    @Html.ValidationMessageFor(x => x.Numero, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Complemento, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Complemento)
-        @Html.ValidationMessageFor(x => x.Complemento)
-    </div>
+    @Html.LabelFor(x => x.Complemento, new { @class = "sr-only" })
+    @Html.TextBoxFor(x => x.Complemento, new { @class = "form-control", placeholder = "Informe o Complemento" })
+    @Html.ValidationMessageFor(x => x.Complemento, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Bairro, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Bairro)
-        @Html.ValidationMessageFor(x => x.Bairro)
-    </div>
+    @Html.LabelFor(x => x.Bairro, new { @class = "sr-only" })
+    @Html.TextBoxFor(x => x.Bairro, new { @class = "form-control", placeholder = "Informe o Bairro" })
+    @Html.ValidationMessageFor(x => x.Bairro, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Cidade, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Cidade)
-        @Html.ValidationMessageFor(x => x.Cidade)
-    </div>
+    @Html.LabelFor(x => x.Cidade, new { @class = "sr-only" })
+    @Html.TextBoxFor(x => x.Cidade, new { @class = "form-control", placeholder = "Informe a Cidade" })
+    @Html.ValidationMessageFor(x => x.Cidade, "", new { @class = "text-danger" })
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Estado, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Estado)
-        @Html.ValidationMessageFor(x => x.Estado)
-    </div>
+    @Html.LabelFor(x => x.Estado, new { @class = "sr-only" })
+    @Html.TextBoxFor(x => x.Estado, new { @class = "form-control", placeholder = "Informe o Estado" })
+    @Html.ValidationMessageFor(x => x.Estado, "", new { @class = "text-danger" })
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+    <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
 }
 
 @section Scripts{
@@ -114,7 +88,7 @@
             $("#Cep").mask('00000-000');
             $("#Cpf").mask('000.000.000-00')
 
-            
+
         })
     </script>
 }
