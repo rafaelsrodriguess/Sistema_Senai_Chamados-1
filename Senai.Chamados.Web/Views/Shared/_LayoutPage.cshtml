@@ -61,7 +61,7 @@
                 {
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle nav-item" data-toggle="dropdown">@User.Identity.Name<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle nav-item" data-toggle="dropdown">@MeuHelper.BoasVindas() @User.Identity.Name<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Alterar Senha", "AlterarSenha", "Perfil")</li>
                                 <li>@Html.ActionLink("Sair", "Logout", "Conta")</li>

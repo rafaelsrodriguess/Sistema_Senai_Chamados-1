@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Senai.Chamados.Data.Repositorios;
 using Senai.Chamados.Domain.Entidades;
+using Senai.Chamados.Domain.Enum;
 using Senai.Chamados.Web.ViewModels.Chamado;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Senai.Chamados.Web.Controllers
     {
         // GET: Chamado
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string titulo, string setor)
         {
             ListaChamadoViewModel vmListaChamados = new ListaChamadoViewModel();
 
@@ -36,7 +37,15 @@ namespace Senai.Chamados.Web.Controllers
                 }
             }
 
-
+            //Verifica se o campo titulo do filtro esta preenchido
+            if (!string .IsNullOrEmpty(titulo))
+            {
+                vmListaChamados.ListaChamados = vmListaChamados.ListaChamados.Where(x => x.Titulo.ToUpper().Contains(titulo.ToUpper())).ToList();
+            }
+            if(!string.IsNullOrEmpty(setor))
+            {
+                vmListaChamados.ListaChamados = vmListaChamados.ListaChamados.Where(x => x.Setor == (EnSetor)Enum.Parse(typeof(EnSetor), setor)).ToList();
+            }
 
             return View(vmListaChamados);
         }
